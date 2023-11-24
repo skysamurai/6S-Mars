@@ -8,7 +8,21 @@ function Spacecraft(name, fueltype) {
   this.fuelLevel = 100;
   this.isInSpace = false;
 
-  this.launch(){};
+  this.launch = function() {
+    if (this.fuelLevel === 100) {
+      console.log(`Корабль ${this.name} полностью заправлен и готов к запуску в космос!`);
+      console.log(`Начинаем отсчет`);
+      for (let sec = 10; sec > 0; sec--) {console.log(sec)};
+      this.fuelLevel -= 10;
+      console.log(`Корабль ${this.name} успешно покинул космопорт!`);
+      this.isInSpace = true;
+    } else if (this.isInSpace === false) {
+      console.log(`У корабля ${this.name} баки заправлены на ${this.fuelLevel}%, требуется заправка`)
+    } else {
+      console.log(`Корабль ${this.name} находится в космосе!`);
+    }
+  }
+  
   this.land(destination){};
   this.checkFuel(){};
   this.refuel(amount){};
