@@ -1,0 +1,12 @@
+body {
+  background-image: url('images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.centered-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
