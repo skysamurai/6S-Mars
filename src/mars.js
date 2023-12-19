@@ -1,49 +1,48 @@
 function Spacecraft(name, fueltype) {
-  UserShip.name = name;
-  UserShip.fueltype = fueltype;
-  UserShip.fuelLevel = 0;
-  UserShip.isInSpace = false;
-  UserShip.price = UserShip.price;
-  UserShip.tankVolume = 0;
-  UserShip.speed = 0;
-  UserShip.fuelConsumption = 0;
-  UserShip.autopilot = false;
+  this.name = name;
+  this.fueltype = fueltype;
+  this.fuelLevel = 0;
+  this.location = 4;
+  this.price = 0;
+  this.tankVolume = 0;
+  this.speed = 0;
+  this.fuelConsumption = 0;
+  this.autopilot = false;
 
-
-  UserShip.launch = function() {
-    if (UserShip.fuelLevel === 100) {
-      console.log(`Корабль ${UserShip.name} полностью заправлен и готов к запуску в космос!`);
+  this.launch = function() {
+    if (this.fuelLevel === 100) {
+      console.log(`Корабль ${this.name} полностью заправлен и готов к запуску в космос!`);
       console.log(`Начинаем отсчет`);
       for (let sec = 10; sec > 0; sec--) {console.log(sec)};
-      UserShip.fuelLevel -= 10;
-      console.log(`Корабль ${UserShip.name} успешно покинул космопорт!`);
-      UserShip.isInSpace = true;
-    } else if (UserShip.isInSpace === false) {
-      console.log(`У корабля ${UserShip.name} баки заправлены на ${UserShip.fuelLevel}%, требуется заправка`)
+      this.fuelLevel -= 10;
+      console.log(`Корабль ${this.name} успешно покинул космопорт!`);
+      this.location = 0;
+    } else if (this.location !== 0) {
+      console.log(`У корабля ${this.name} баки заправлены на ${this.fuelLevel}%, требуется заправка`)
     } else {
-      console.log(`Корабль ${UserShip.name} находится в космосе!`);
+      console.log(`Корабль ${this.name} находится в космосе!`);
     }
   };
 
-  UserShip.land = function(destination) {
-    console.log(`Экипажу ${UserShip.name} подготовиться к посадке на ${destination}.`);
-    UserShip.fuelLevel -= 10;
-    UserShip.isInSpace = false;
+  this.land = function(destination) {
+    console.log(`Экипажу ${this.name} подготовиться к посадке на ${destination}.`);
+    this.fuelLevel -= 10;
+    this.location = destination;
     console.log(`Поздравляем с успешной посадкой на ${destination}.`);
     };
   
-  UserShip.checkFuel = function(){
-    console.log(`Текущий уровень топлива корабля ${UserShip.name} составляет ${UserShip.fuelLevel}`)
+  this.checkFuel = function(){
+    console.log(`Текущий уровень топлива корабля ${this.name} составляет ${this.fuelLevel}`)
   };
 
-  UserShip.refuel = function(amount) {
-    UserShip.fuelLevel += amount
-    if (UserShip.fuelLevel > 100) {
-      console.log(`Баки корабля ${UserShip.name} не вместят данный объем топлива.`);
-      console.log(`Корабль полностью заправлен. ${UserShip.fuelLevel - 100} топлива возвращено в порт.`);
-      UserShip.fuelLevel = 100;
-    } else if (UserShip.fuelLevel < 100) {
-      console.log(`Корабль заправлен на ${UserShip.fuelLevel}%, для отправления требуется дозаправка.`)
+  this.refuel = function(amount) {
+    this.fuelLevel += amount
+    if (this.fuelLevel > 100) {
+      console.log(`Баки корабля ${this.name} не вместят данный объем топлива.`);
+      console.log(`Корабль полностью заправлен. ${this.fuelLevel - 100} топлива возвращено в порт.`);
+      this.fuelLevel = 100;
+    } else if (this.fuelLevel < 100) {
+      console.log(`Корабль заправлен на ${this.fuelLevel}%, для отправления требуется дозаправка.`)
     } else {
       console.log(`Корабль полностью заправлен.`);
     }
@@ -51,49 +50,47 @@ function Spacecraft(name, fueltype) {
 }
 
 function MarsRover(model, navigationSystem) {
-  UserShip.model = model;
-  UserShip.navigationSystem = navigationSystem;
-  UserShip.dataCollected = [];
+  this.model = model;
+  this.navigationSystem = navigationSystem;
+  this.dataCollected = [];
 
-  UserShip.move = function(direction) {
-    console.log(`Марсоход ${UserShip.model} отправлен в направлении ${direction}.`);
+  this.move = function(direction) {
+    console.log(`Марсоход ${this.model} отправлен в направлении ${direction}.`);
   };
-  UserShip.collectData = function(dataType) { 
-    console.log(`Марсоход ${UserShip.model} собирает данные формата ${dataType}.`);
-    UserShip.dataCollected.push(dataType);
+  this.collectData = function(dataType) { 
+    console.log(`Марсоход ${this.model} собирает данные формата ${dataType}.`);
+    this.dataCollected.push(dataType);
   };
-  UserShip.sendDataToEarth = function() {
-    console.log(`Данные с марсохода ${UserShip.model} отправлены на Землю. База данных очищена.`);
-    UserShip.dataCollected = [];
+  this.sendDataToEarth = function() {
+    console.log(`Данные с марсохода ${this.model} отправлены на Землю. База данных очищена.`);
+    this.dataCollected = [];
   };
 }
 
 function MissionControl(missionName, launchDate, spacecraft, marsRover) {
-  UserShip.missionName = missionName;
-  UserShip.launchDate = launchDate;
-  UserShip.spacecraft = spacecraft;
-  UserShip.marsRover = marsRover;
+  this.missionName = missionName;
+  this.launchDate = launchDate;
+  this.spacecraft = spacecraft;
+  this.marsRover = marsRover;
 
-  UserShip.initiateLaunch = function() {
-    UserShip.spacecraft.launch();
+  this.initiateLaunch = function() {
+    this.spacecraft.launch();
   }
-  UserShip.deployMarsRover = function() {
-    UserShip.marsRover.move('поверхность Марса');
-
+  this.deployMarsRover = function() {
+    this.marsRover.move('поверхность Марса');
   }
-  UserShip.coordinateMission = function() {
-    console.log(`Миссия ${UserShip.missionName} началась...`);
-    console.log(`Марсоход ${UserShip.marsRover.model} начинает сбор данных.`);
-    UserShip.marsRover.collectData('Photo');
-    UserShip.marsRover.collectData('Temperature');
-    UserShip.marsRover.collectData('Air composition');
-    UserShip.marsRover.sendDataToEarth();
+  this.coordinateMission = function() {
+    console.log(`Миссия ${this.missionName} началась...`);
+    console.log(`Марсоход ${this.marsRover.model} начинает сбор данных.`);
+    this.marsRover.collectData('Photo');
+    this.marsRover.collectData('Temperature');
+    this.marsRover.collectData('Air composition');
+    this.marsRover.sendDataToEarth();
   }
-
-  UserShip.monitorMissionProgress = function() {
-    console.log(`Миссия ${UserShip.missionName}.`);
-    console.log(`${UserShip.launchDate} c земли отправлен марсоход ${UserShip.marsRover.model} на корабле ${UserShip.spacecraft.name}`);
-    UserShip.spacecraft.checkFuel();
+  this.monitorMissionProgress = function() {
+    console.log(`Миссия ${this.missionName}.`);
+    console.log(`${this.launchDate} c земли отправлен марсоход ${this.marsRover.model} на корабле ${this.spacecraft.name}`);
+    this.spacecraft.checkFuel();
   };
 }
 
@@ -145,11 +142,10 @@ let ships = shipsData.map(data => ({
 
 let cash = (Math.floor(Math.random() * 11) * 100000) + 1000000;
 const fuel = Math.floor(Math.random() * 100);
-let UserShip = {};
-const spacecraftImage = document.getElementById('spacecraftImage');
+
+let UserShip = new Spacecraft('New', 'Hydrogen');
 
 spacecraftImage.src = 'images/port.jpg';
-
 console.log("ID\t\tName\t\t\tPrice\t\t\tTank Volume\t\t\tSpeed\t\t\tFuel Consumption\t\t\tAutopilot");
 ships.forEach(ship => {
   console.log(`${ship.id}\t\t${ship.name}\t\t\t${ship.price}\t\t\t\t${ship.tankVolume}\t\t\t\t${ship.speed}\t\t\t\t\t${ship.fuelConsumption}\t\t\t\t\t\t${ship.autopilot}`);
@@ -173,7 +169,6 @@ function PurchaseVerification() {
         UserShip.name = selectedShip[1];
         UserShip.fueltype = 'Hydrogen';
         UserShip.fuelLevel = fuel;
-        UserShip.isInSpace = false;
         UserShip.price = selectedShip[2];
         UserShip.tankVolume = selectedShip[3];
         UserShip.speed = selectedShip[4];
@@ -224,11 +219,25 @@ let planets = planetsData.map(data => ({
   specialEquipment: data[5]
 }));
 
-planets.forEach(planet => {
-  console.log(`Planet ID: ${planet.id}`);
-  console.log(`Name: ${planet.name}`);
-  console.log(`Coordinates (X, Y): (${planet.X}, ${planet.Y})`);
-  console.log(`Materials: ${planet.materials}`);
-  console.log(`Special Equipment: ${planet.specialEquipment}`);
-  console.log('---------------------------');
-});
+// Вывод всех планет
+// planets.forEach(planet => {
+//   console.log(`ID планеты: ${planet.id}`);
+//   console.log(`Имя: ${planet.name}`);
+//   console.log(`Координаты (X, Y): (${planet.X}, ${planet.Y})`);
+//   console.log(`Вещества: ${planet.materials}`);
+//   let specEquip = !planet.specialEquipment ? "не нужно" 
+//   : planet.specialEquipment == 1 ? "спецзащита"
+//   : planet.specialEquipment == 2 ? "спецускорители" 
+//   : "спецзащита и спецускорители";
+//   console.log(`Необходимое спецоборудование: ${specEquip}`);
+//   console.log('---------------------------');
+// });
+
+/* Функции автопилота( расчет расстояния, расчет оптимального маршрута, ) */
+function Distance(planet1, planet2) {
+  return Math.round(Math.sqrt((planet2.X - planet1.X) ** 2 + (planet2.Y - planet1.Y) ** 2))*1000;
+}
+
+const earth = planets.find(planet => planet.name === "Earth");
+const moon = planets.find(planet => planet.name === "Luna");
+console.log(Distance(earth, moon));
